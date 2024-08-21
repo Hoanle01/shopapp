@@ -32,22 +32,41 @@ public class OrderController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 }
-@GetMapping("/{user_id}")
+@GetMapping("/user/{user_id}")
 
 public ResponseEntity<?> getOrder(@PathVariable("user_id") long user_id) {
     try {
-        return ResponseEntity.ok("getOrder");
+        List<Order> orders=orderService.findByUserId(user_id);
+        return ResponseEntity.ok(orders);
     } catch (Exception e) {
         return ResponseEntity.badRequest().body(e.getMessage());
 
     }
 }
+@GetMapping("/{id}")
+
+    public ResponseEntity<?> getOrders(@PathVariable("id") long orderId) {
+        try {
+            Order existtingOrder= orderService.getOrder(orderId);
+            return ResponseEntity.ok(existtingOrder);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        }
+    }
 @PutMapping("/{id}")
-public ResponseEntity<?> updateOrder(@Valid @PathVariable("id") long id, @RequestBody OrderDTO order) {
-    return ResponseEntity.ok("update successfully");
+public ResponseEntity<?> updateOrder(@Valid @PathVariable("id") long id, @RequestBody OrderDTO orderDTO) {
+    try {
+        Order order= orderService.updateOrder(id,orderDTO);
+        return ResponseEntity.ok(order);
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+
+    }
 }
 @DeleteMapping("/{id}")
 public ResponseEntity<?> deleteOrder(@Valid @PathVariable("id") long id) {
+    orderService.deleteOrder(id);
     return ResponseEntity.ok("delete successfully");
 }
 }
