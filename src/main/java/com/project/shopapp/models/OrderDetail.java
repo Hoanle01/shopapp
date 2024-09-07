@@ -22,7 +22,7 @@ public class OrderDetail {
     @JoinColumn(name="product_id")
     private Product product;
     @Column(name = "number_of_products",nullable = false)
-    private String numberOfProducts;
+    private int numberOfProducts;
     @Column(name="total_money",nullable=false)
     private Float totalMoney;
     @Column(name="color")

@@ -22,3 +22,7 @@ spring:
 
 api:
   prefix: api/
+
+jwt:
+  expiration: 2592000
+  secretKey:"I'm Hoang"
